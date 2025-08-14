@@ -4,12 +4,14 @@ from .models import User
 from .serializer import UserSerializer
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+@api_view(('POST',))
 def register(request):
     if request.method != 'POST':
         return Response({"error": "Invalid method"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -23,6 +25,7 @@ def register(request):
     user.save()
     return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
 
+@api_view(('POST',))
 def login(request):
     if request.method != 'POST':
         return Response({"error": "Invalid method"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -37,7 +40,8 @@ def login(request):
         return Response({"message": "Login successful", "user_id": user.id}, status=status.HTTP_200_OK)
     except User.DoesNotExist:
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
-    
+
+@api_view(('POST',))
 def change_password(request):
     if request.method != 'POST':
         return Response({"error": "Invalid method"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

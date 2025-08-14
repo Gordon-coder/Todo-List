@@ -8,6 +8,7 @@ import './index.css';
 import App from './App';
 import Home from './Home';
 import About from './About';
+import {Register, Login} from './Auth';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,8 @@ const router = createBrowserRouter([
     children: [
       {index: true, Component: Home},
       {path: "about", Component: About},
+      {path: "register", Component: Register},
+      {path: "login", Component: Login},
     ]
   },
 ]);

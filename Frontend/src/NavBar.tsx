@@ -1,8 +1,11 @@
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { useState } from "react";
 
-function NavBar() {
+type NavBarProps = {
+  loggedIn: boolean;
+};
+
+function NavBar({loggedIn}: NavBarProps) {
   return (
     <Navbar bg="light" expand="lg" className="p-2">
       <Navbar.Brand href="#home">Todo List</Navbar.Brand>
@@ -11,7 +14,16 @@ function NavBar() {
         <Nav className="me-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/about">About</Nav.Link>
-          <Nav.Link href="/tasks"></Nav.Link>
+          {
+            loggedIn ? (
+              <Nav.Link href="/logout">Logout</Nav.Link>
+            ) : (
+              <>
+                <Nav.Link href="/login">Login</Nav.Link>
+                <Nav.Link href="/register">Register</Nav.Link>
+              </>
+            )
+          }
         </Nav>
       </Navbar.Collapse>
     </Navbar>
